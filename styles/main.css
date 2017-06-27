@@ -32,7 +32,7 @@ body {
 
 @media (min-wdith: 640) {
   html { font-size: 112%;}
-  
+
   .column {
     float: left;
     padding-left: 1rem;
@@ -50,4 +50,14 @@ body {
   html {
     font-size: 120%;
   }
+}
+
+.clearfix::before,
+.clearfix::after {
+  content: " ";
+  display: table;
+}
+
+.clearfix::after {
+  clear:both;
 }
