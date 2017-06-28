@@ -33,6 +33,7 @@ body {
   position: absolute;
   top: 0;
   right: 0;
+  height: 100px;
   color: white;
   text-decoration: none;
 }
@@ -57,12 +58,17 @@ body {
     color: rgb(233,50,117);
 }
 
+.links-container .navbar-link:active{
+  color: rgb(233,50,117);
+  background-color: white;
+}
+
 .container {
   margin: 0 auto;
   max-width: 64rem;
 }
 
-@media (min-wdith: 640) {
+@media (min-width: 640px) {
   html { font-size: 112%;}
 
   .column {
@@ -78,18 +84,16 @@ body {
   .column.flow-opposite { float: right; }
 }
 
-@media (min-width: 1024px) {
-  html {
-    font-size: 120%;
-  }
+@media (min-width: 64rem) {
+    html { font-size: 120%; }
 }
 
-.clearfix::before,
-.clearfix::after {
-  content: " ";
-  display: table;
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
 }
 
-.clearfix::after {
-  clear:both;
+.clearfix:after {
+    clear: both;
 }
