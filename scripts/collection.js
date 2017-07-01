@@ -21,3 +21,5 @@ var collectionItemTemplate =
        collectionContainer.innerHTML += collectionItemTemplate;
    }
   };
+
+  
