@@ -28,6 +28,23 @@ var albumMarconi = {
     ]
 };
 
+var albumManchild = {
+  title: 'Ambiguous Decline',
+  artist: 'Manchild',
+  label: 'Pretenious Picks',
+  year: '2016',
+  albumArtUrl: 'assets/images/album_covers/21.png',
+  songs: [
+    { title: 'The one about my life', duration: '1:01' },
+    { title: 'A girl dumped me and it makes me sad' , duration: '5:01' },
+    { title: 'The terror of my life', duration: '3:21'},
+    { title: 'Modern times', duration: '3:14' },
+    { title: 'hello hello hello', duration: '2:15'}
+  ]
+};
+
+var albums = [ albumPicasso, albumMarconi, albumManchild];
+
 var createSongRow = function(songNumber, songName, songLength){
   var template =
      '<tr class="album-view-song-item">'
@@ -58,7 +75,12 @@ var setCurrentAlbum = function(album) {
     albumSongList.innerHTML += createSongRow( i + 1, album.songs[i].title, album.songs[i].duration);
   }
 };
-
+var albumCount = 0;
 window.onload = function() {
-  setCurrentAlbum(albumPicasso);
+  setCurrentAlbum(albums[albumCount]);
 };
+
+document.getElementsByClassName('album-cover-art')[0].addEventListener('click', function(){
+  albumCount+=1;
+  setCurrentAlbum(albums[albumCount % albums.length]);
+});
