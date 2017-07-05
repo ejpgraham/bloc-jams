@@ -76,6 +76,10 @@ var setCurrentAlbum = function(album) {
 };
 
 var findParentByClassName = function (element, targetClassName){
+  if (element.parentElement === undefined){
+    console.log("No parent found");
+    return undefined;
+  }
   while (element.parentElement){
     if (element.parentElement.className.indexOf(targetClassName) !== -1) {
       return element.parentElement;
@@ -83,6 +87,7 @@ var findParentByClassName = function (element, targetClassName){
       element = element.parentElement;
     }
   }
+  console.log("No parent with this class name found");
   return undefined;
 };
 
