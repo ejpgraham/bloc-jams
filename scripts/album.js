@@ -155,11 +155,13 @@ var getSongNumberCell = function(songNumber){
 };
 
 var togglePlayFromPlayerBar = function(){
-
+  var $currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
   if (currentSoundFile.isPaused()){
+    $currentlyPlayingCell.html(pauseButtonTemplate);
     $(this).html(playerBarPauseButton);
     currentSoundFile.play();
-  } else {
+  } else if (currentSoundFile) {
+    $currentlyPlayingCell.html(playButtonTemplate);
     $(this).html(playerBarPlayButton);
     currentSoundFile.pause();
   }
