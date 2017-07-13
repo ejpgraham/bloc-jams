@@ -5,7 +5,7 @@ var createSongRow = function(songNumber, songName, songLength){
      '<tr class="album-view-song-item">'
    + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
    + '  <td class="song-item-title">' + songName + '</td>'
-   + '  <td class="song-item-duration">' + songLength + '</td>'
+   + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
    + '</tr>'
    ;
 
@@ -31,7 +31,7 @@ var createSongRow = function(songNumber, songName, songLength){
        $volumeThumb.css({left: currentVolume + '%'});
 
        updateSeekBarWhileSongPlays();
-       
+
      } else if (currentlyPlayingSongNumber === clickedSongNumber) {
        if ( currentSoundFile.isPaused() ){
          $(this).html(pauseButtonTemplate);
@@ -73,6 +73,7 @@ var updatePlayerBarSong = function() {
   $('.artist-name').text(currentAlbum.artist);
   $('.artist-song-mobile').html(currentAlbum.songs[currentlyPlayingSongNumber - 1].title + " - " + currentAlbum.artist);
   $('.main-controls .play-pause').html(playerBarPauseButton);
+  setTotalTimeInPlayerBar(currentAlbum.songs[currentlyPlayingSongNumber - 1].duration);
 };
 
 var setCurrentAlbum = function(album) {
@@ -101,7 +102,7 @@ var updateSeekBarWhileSongPlays = function() {
     currentSoundFile.bind('timeupdate', function(event){
       var seekBarFillRatio = this.getTime() / this.getDuration();
       var $seekBar = $('.seek-control .seek-bar');
-
+      setCurrentTimeInPlayerBar(this.getTime());
       updateSeekPercentage($seekBar, seekBarFillRatio);
     });
   }
@@ -154,6 +155,31 @@ var setupSeekBars = function() {
         $(document).unbind('mouseup.thumb');
     });
   });
+};
+
+var setCurrentTimeInPlayerBar = function(currentTime) {
+  $('.current-time').text(filterTimeCode(currentTime));
+};
+
+var setTotalTimeInPlayerBar = function(totalTime) {
+  $('.total-time').text(filterTimeCode(totalTime));
+};
+
+var filterTimeCode = function(timeInSeconds) {
+  var time = Math.floor(parseFloat(timeInSeconds));
+  if (time >= 60) {
+    var minutes = Math.floor(time/60);
+    var seconds = (time%60);
+  } else {
+    var minutes = 0;
+    var seconds = time;
+  }
+
+  if (seconds < 10) {
+    seconds = '0' + seconds;
+  }
+
+  return minutes + ':' + seconds
 };
 
 var trackIndex = function(album, song) {
